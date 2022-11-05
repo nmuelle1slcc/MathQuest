@@ -62,6 +62,8 @@ namespace Assignment5NatalieMueller
 
             QuestionLabel.Content = App.Game.GetQuestion();
 
+            Answer.Focus();
+
             InitializeTimer();
         }
 
@@ -196,7 +198,7 @@ namespace Assignment5NatalieMueller
             AnswerError.Visibility = Visibility.Hidden;
             Answer.Focus();
         }
-        
+
         /// <summary>
         /// Clears answer validation errors.
         /// </summary>

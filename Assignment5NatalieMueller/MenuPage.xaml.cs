@@ -43,6 +43,8 @@ namespace Assignment5NatalieMueller
             FighterButton.IsChecked = true;
             AdditionButton.IsChecked = true;
 
+            PlayerName.Focus();
+
             MusicPlayer = new MediaPlayer();
             SoundPlayer = new MediaPlayer();
         }
@@ -116,18 +118,29 @@ namespace Assignment5NatalieMueller
                 PlayerAgeError.Visibility = Visibility.Visible;
             }
 
-            if (int.TryParse(PlayerAge.Text, out int Age) && valid)
+            if (valid)
             {
-                try
+                if (int.TryParse(PlayerAge.Text, out int Age))
                 {
-                    App.Game = new Game(PlayerName.Text, Age, SelectedGameType, SelectedHero);
+                    try
+                    {
+                        App.Game = new Game(PlayerName.Text, Age, SelectedGameType, SelectedHero);
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        valid = false;
+                        PlayerAge.Text = "";
+                        PlayerAgeError.Content = "Age must be between 3 and 10.";
+                        PlayerAgeError.Visibility = Visibility.Visible;
+                    }
                 }
-                catch (ArgumentOutOfRangeException)
+                else //age is not a number
                 {
                     valid = false;
                     PlayerAge.Text = "";
-                    PlayerAgeError.Content = "Age must be 3 to 10.";
+                    PlayerAgeError.Content = "Age must be a number between 3 and 10.";
                     PlayerAgeError.Visibility = Visibility.Visible;
+
                 }
             }
 
